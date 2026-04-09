@@ -18,9 +18,9 @@
 
 **Purpose**: Create project structure and initialize Python project
 
-- [ ] T001 Create project structure: `src/` and `tests/` directories
-- [ ] T002 Initialize Python project with pytest dependency (`pip install pytest`)
-- [ ] T003 [P] Configure pytest in `pytest.ini` or `pyproject.toml`
+- [x] T001 Create project structure: `src/` and `tests/` directories
+- [x] T002 Initialize Python project with pytest dependency (`pip install pytest`)
+- [x] T003 [P] Configure pytest in `pytest.ini` or `pyproject.toml`
 
 ---
 
@@ -28,9 +28,9 @@
 
 **Purpose**: Base URLShortener class with in-memory storage and Base62 encoder
 
-- [ ] T004 [P] Create URL validator utility in `src/url_validator.py`
-- [ ] T005 [P] Create Base62 encoder utility in `src/base62.py`
-- [ ] T006 Create main URLShortener class in `src/url_shortener.py` with:
+- [x] T004 [P] Create URL validator utility in `src/url_validator.py`
+- [x] T005 [P] Create Base62 encoder utility in `src/base62.py`
+- [x] T006 Create main URLShortener class in `src/url_shortener.py` with:
   - `__init__()` method initializing in-memory `dict` storage
   - `shorten(original_url: str) -> str` method signature
   - `resolve(short_code: str) -> Optional[str]` method signature
@@ -45,18 +45,18 @@
 
 ### Tests for User Story 1 (TDD - write FIRST)
 
-- [ ] T007 [P] [US1] Test `test_shorten_valid_url_returns_string_matching_pattern` in `tests/test_url_shortener.py`
-- [ ] T008 [P] [US1] Test `test_resolve_existing_code_returns_original_url` in `tests/test_url_shortener.py`
-- [ ] T009 [P] [US1] Test `test_resolve_is_case_sensitive` in `tests/test_url_shortener.py`
+- [x] T007 [P] [US1] Test `test_shorten_valid_url_returns_string_matching_pattern` in `tests/test_url_shortener.py`
+- [x] T008 [P] [US1] Test `test_resolve_existing_code_returns_original_url` in `tests/test_url_shortener.py`
+- [x] T009 [P] [US1] Test `test_resolve_is_case_sensitive` in `tests/test_url_shortener.py`
 
 ### Implementation for User Story 1
 
-- [ ] T010 [US1] Implement `shorten()` method in `src/url_shortener.py`:
+- [x] T010 [US1] Implement `shorten()` method in `src/url_shortener.py`:
   - Validate URL with protocol (http:// or https://)
   - Check for idempotency (same URL → same code)
   - Generate unique Base62 code using counter
   - Store mapping in dict
-- [ ] T011 [US1] Implement `resolve()` method in `src/url_shortener.py`:
+- [x] T011 [US1] Implement `resolve()` method in `src/url_shortener.py`:
   - Look up short_code in dict
   - Return original URL or None if not found
 
@@ -72,17 +72,17 @@
 
 ### Tests for User Story 2 (TDD - write FIRST)
 
-- [ ] T012 [P] [US2] Test `test_shorten_missing_protocol_raises_error` in `tests/test_url_shortener.py`
-- [ ] T013 [P] [US2] Test `test_shorten_empty_string_raises_error` in `tests/test_url_shortener.py`
-- [ ] T014 [P] [US2] Test `test_resolve_non_existing_code_returns_none` in `tests/test_url_shortener.py`
+- [x] T012 [P] [US2] Test `test_shorten_missing_protocol_raises_error` in `tests/test_url_shortener.py`
+- [x] T013 [P] [US2] Test `test_shorten_empty_string_raises_error` in `tests/test_url_shortener.py`
+- [x] T014 [P] [US2] Test `test_resolve_non_existing_code_returns_none` in `tests/test_url_shortener.py`
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Update `shorten()` in `src/url_shortener.py`:
+- [x] T015 [US2] Update `shorten()` in `src/url_shortener.py`:
   - Raise `ValueError` for empty string
   - Raise `ValueError` for URLs without http:// or https://
   - Raise `TypeError` for non-string types
-- [ ] T016 [US2] Update `resolve()` in `src/url_shortener.py`:
+- [x] T016 [US2] Update `resolve()` in `src/url_shortener.py`:
   - Raise `TypeError` for non-string short_code
 
 **Checkpoint**: User Story 2 should pass all tests
@@ -97,17 +97,17 @@
 
 ### Tests for User Story 3 (TDD - write FIRST)
 
-- [ ] T017 [P] [US3] Test `test_shorten_url_with_special_chars_preserves_them` in `tests/test_url_shortener.py`
-- [ ] T018 [P] [US3] Test handling of URLs with query parameters and anchors
-- [ ] T019 [P] [US3] Test handling of very long URLs (2000+ characters)
+- [x] T017 [P] [US3] Test `test_shorten_url_with_special_chars_preserves_them` in `tests/test_url_shortener.py`
+- [x] T018 [P] [US3] Test handling of URLs with query parameters and anchors
+- [x] T019 [P] [US3] Test handling of very long URLs (2000+ characters)
 
 ### Implementation for User Story 3
 
-- [ ] T020 [US3] Update URL validator in `src/url_validator.py`:
+- [x] T020 [US3] Update URL validator in `src/url_validator.py`:
   - Strip whitespace from URL ends
   - Reject URLs with internal spaces
   - Preserve special characters in path/query/fragment
-- [ ] T021 [US3] Verify `shorten()` and `resolve()` preserve exact URL string
+- [x] T021 [US3] Verify `shorten()` and `resolve()` preserve exact URL string
 
 **Checkpoint**: User Story 3 should pass all tests
 
@@ -117,9 +117,9 @@
 
 **Purpose**: Final verification and documentation
 
-- [ ] T022 Run full test suite: `pytest tests/test_url_shortener.py -v`
-- [ ] T023 Verify all 8 required test names from spec pass
-- [ ] T024 Add module docstring to `src/url_shortener.py`
+- [x] T022 Run full test suite: `pytest tests/test_url_shortener.py -v`
+- [x] T023 Verify all 8 required test names from spec pass
+- [x] T024 Add module docstring to `src/url_shortener.py`
 
 ---
 

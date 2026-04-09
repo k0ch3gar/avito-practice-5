@@ -7,6 +7,7 @@ import os
 # Add src to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
+# Import directly from the modules
 from url_shortener import URLShortener
 
 
@@ -61,3 +62,73 @@ class TestUserStory1BasicURLShortening:
         upper_code = code.upper()
         if upper_code != code:
             assert shortener.resolve(upper_code) is None
+
+
+class TestUserStory2ErrorHandling:
+    """Test error handling and validation (User Story 2)."""
+    
+    def test_shorten_missing_protocol_raises_error(self):
+        """
+        Test that shortening URL without protocol raises ValueError.
+        
+        AC-5: Invalid URL raises ValueError
+        """
+        shortener = URLShortener()
+        
+        with pytest.raises(ValueError, match="http"):
+            shortener.shorten("www.example.com")
+    
+    def test_shorten_empty_string_raises_error(self):
+        """
+        Test that shortening empty string raises ValueError.
+        
+        AC-5: Empty string raises ValueError
+        """
+        shortener = URLShortener()
+        
+        with pytest.raises(ValueError, match="empty"):
+            shortener.shorten("")
+    
+    def test_resolve_non_existing_code_returns_none(self):
+        """
+        Test that resolving non-existent code returns None.
+        
+        AC-4: Non-existent code returns None
+        """
+        shortener = URLShortener()
+        
+        result = shortener.resolve("nonexistent")
+        
+        assert result is None
+
+
+class TestUserStory3EdgeCases:
+    """Test edge cases (User Story 3)."""
+    
+    def test_shorten_url_with_special_chars_preserves_them(self):
+        """
+        Test that URLs with special characters are preserved exactly.
+        
+        Edge Case 5: Special characters preserved
+        """
+        shortener = URLShortener()
+        url = "https://example.com/path?query=value&other=data"
+        
+        code = shortener.shorten(url)
+        resolved = shortener.resolve(code)
+        
+        assert resolved == url
+    
+    def test_shorten_same_url_returns_same_code(self):
+        """
+        Test idempotency - same URL returns same code.
+        
+        AC-2: Duplicate URL returns same code
+        """
+        shortener = URLShortener()
+        url = "https://example.com/test"
+        
+        code1 = shortener.shorten(url)
+        code2 = shortener.shorten(url)
+        
+        assert code1 == code2

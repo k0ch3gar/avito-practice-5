@@ -2,8 +2,16 @@
 
 from typing import Optional
 
-from .base62 import encode_base62
-from .url_validator import validate_url
+try:
+    from .base62 import encode_base62
+    from .url_validator import validate_url
+except ImportError:
+    # When running directly or as __main__
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    from base62 import encode_base62
+    from url_validator import validate_url
 
 
 class URLShortener:
@@ -42,7 +50,33 @@ class URLShortener:
             - Mapping exists in storage for returned code
             - resolve(code) returns original_url
         """
-        raise NotImplementedError
+        # Type check
+        if not isinstance(original_url, str):
+            raise TypeError("URL must be a string")
+        
+        # Validate URL
+        is_valid, error_msg = validate_url(original_url)
+        if not is_valid:
+            raise ValueError(error_msg)
+        
+        # Strip URL for storage
+        stripped_url = original_url.strip()
+        
+        # Check for idempotency - return existing code if URL exists
+        if stripped_url in self._url_to_code:
+            return self._url_to_code[stripped_url]
+        
+        # Generate new short code
+        code = encode_base62(self._counter)
+        
+        # Store mappings (bi-directional)
+        self._storage[code] = stripped_url
+        self._url_to_code[stripped_url] = code
+        
+        # Increment counter
+        self._counter += 1
+        
+        return code
     
     def resolve(self, short_code: str) -> Optional[str]:
         """
@@ -57,4 +91,9 @@ class URLShortener:
         Raises:
             TypeError: If short_code is not a string
         """
-        raise NotImplementedError
+        # Type check
+        if not isinstance(short_code, str):
+            raise TypeError("Short code must be a string")
+        
+        # Look up and return
+        return self._storage.get(short_code)
