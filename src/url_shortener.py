@@ -66,8 +66,8 @@ class URLShortener:
         if stripped_url in self._url_to_code:
             return self._url_to_code[stripped_url]
         
-        # Generate new short code
-        code = encode_base62(self._counter)
+        # Generate new short code (padded to 6 chars per contract)
+        code = encode_base62(self._counter).rjust(6, "0")
         
         # Store mappings (bi-directional)
         self._storage[code] = stripped_url

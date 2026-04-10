@@ -7,8 +7,8 @@
 git clone <repo-url>
 cd <repo-name>
 
-# Install dependencies (pytest for testing)
-pip install pytest
+# Install dependencies (testing + coverage)
+pip install pytest pytest-cov
 ```
 
 ## Basic Usage

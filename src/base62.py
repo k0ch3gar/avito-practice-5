@@ -1,6 +1,6 @@
 """Base62 encoding utilities."""
 
-BASE62_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+BASE62_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 BASE62_LENGTH = len(BASE62_CHARS)  # 62
 
 

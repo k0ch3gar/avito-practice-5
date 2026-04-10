@@ -41,7 +41,7 @@
 
 **Goal**: Shorten valid URLs and retrieve original URLs by short code
 
-**Independent Test**: `pytest tests/test_url_shortener.py::test_shorten_valid_url_returns_string_matching_pattern`
+**Independent Test**: `pytest tests/test_url_shortener.py::TestUserStory1BasicURLShortening::test_shorten_valid_url_returns_string_matching_pattern`
 
 ### Tests for User Story 1 (TDD - write FIRST)
 
@@ -68,7 +68,7 @@
 
 **Goal**: Reject invalid URLs with appropriate exceptions
 
-**Independent Test**: `pytest tests/test_url_shortener.py::test_shorten_missing_protocol_raises_error`
+**Independent Test**: `pytest tests/test_url_shortener.py::TestUserStory2ErrorHandling::test_shorten_missing_protocol_raises_error`
 
 ### Tests for User Story 2 (TDD - write FIRST)
 
@@ -93,7 +93,7 @@
 
 **Goal**: Handle special characters, whitespace, and preserve URL integrity
 
-**Independent Test**: `pytest tests/test_url_shortener.py::test_shorten_url_with_special_chars_preserves_them`
+**Independent Test**: `pytest tests/test_url_shortener.py::TestUserStory3EdgeCases::test_shorten_url_with_special_chars_preserves_them`
 
 ### Tests for User Story 3 (TDD - write FIRST)
 

@@ -28,7 +28,7 @@ class URLShortener:
 ### Relationships
 
 - `_storage` and `_url_to_code` are synchronized (bi-directional mapping)
-- `_counter` determines next code, incremented after each `shorten()` call
+- `_counter` determines next code, incremented ONLY when a new (non-idempotent) short code is created; idempotent `shorten()` calls do NOT increment `_counter`
 
 ### State Transitions
 
@@ -37,7 +37,7 @@ URLShortener instance lifecycle:
   __init__() -> empty state (empty dicts, counter=0)
        |
        v
-  shorten(url) -> adds to _storage, _url_to_code; increments _counter
+  shorten(url) -> if new URL: adds to _storage, _url_to_code, increments _counter; if idempotent: returns existing code without incrementing
        |
        v
   resolve(code) -> reads from _storage (read-only)

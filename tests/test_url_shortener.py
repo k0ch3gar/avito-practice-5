@@ -51,17 +51,24 @@ class TestUserStory1BasicURLShortening:
         Edge Case 6: resolve() is case-sensitive
         """
         shortener = URLShortener()
-        url = "https://example.com"
         
-        code = shortener.shorten(url)
+        # Find a code with at least one alphabetic character
+        code = None
+        url = None
+        for i in range(200):
+            candidate_url = f"https://example.com/{i}"
+            candidate_code = shortener.shorten(candidate_url)
+            if any(ch.isalpha() for ch in candidate_code):
+                code = candidate_code
+                url = candidate_url
+                break
+        assert code is not None, "Could not find a code with alphabetic characters in 200 attempts"
         
         # Same case should work
         assert shortener.resolve(code) == url
         
-        # Uppercase version should not work (case-sensitive)
-        upper_code = code.upper()
-        if upper_code != code:
-            assert shortener.resolve(upper_code) is None
+        # Case-swapped version should not work (case-sensitive)
+        assert shortener.resolve(code.swapcase()) is None
 
 
 class TestUserStory2ErrorHandling:

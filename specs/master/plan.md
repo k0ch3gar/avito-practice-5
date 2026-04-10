@@ -25,7 +25,7 @@ Build a Python library `URLShortener` that shortens URLs using Base62-encoded au
 | TDD mandatory | ✅ PASS | Tests will be written first per spec requirements |
 | Library-first | ✅ PASS | Pure Python library, no web frameworks |
 | Pure business logic | ✅ PASS | No infrastructure concerns, dict only |
-| Input validation | ✅ PASS | URL validation with http://https:// requirement |
+| Input validation | ✅ PASS | URL validation: must start with 'http://' or 'https://' |
 | Simplicity/YAGNI | ✅ PASS | Only explicitly required features |
 
 ## Project Structure

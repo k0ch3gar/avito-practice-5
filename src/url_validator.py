@@ -23,14 +23,14 @@ def validate_url(url: str) -> tuple[bool, Optional[str]]:
     if not isinstance(url, str):
         return False, "URL must be a string"
     
-    # Strip whitespace
-    url = url.strip()
+    # Normalize URL (strip whitespace)
+    normalized_url = url.strip()
     
-    if not url:
+    if not normalized_url:
         return False, "URL cannot be empty"
     
-    # Check for internal whitespace
-    if ' ' in url or '\t' in url or '\n' in url:
+    # Check for internal whitespace (any whitespace character)
+    if any(ch.isspace() for ch in normalized_url):
         return False, "URL cannot contain internal whitespace"
     
     # Check protocol
