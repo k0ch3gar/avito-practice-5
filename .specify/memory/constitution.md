@@ -1,50 +1,74 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# URL Shortener Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Test-First Development (NON-NEGOTIABLE)
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+TDD is mandatory for all features. The development cycle MUST follow this order:
+1. Write a failing test that describes the desired behavior
+2. Get user approval on the test specification
+3. Implement the minimum code to make the test pass
+4. Refactor as needed while keeping tests green
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+Red-Green-Refactor cycle MUST be strictly enforced. No production code without a failing test first.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### II. Library-First Architecture
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+Every feature starts as a standalone library. Libraries MUST be:
+- Self-contained with clear, single responsibility
+- Independently testable without external dependencies
+- Fully documented with docstrings and type hints
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+No organizational-only libraries. Each library must justify its existence through clear purpose.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### III. Pure Business Logic
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+Business logic MUST be implemented without infrastructure concerns:
+- No web frameworks, HTTP layers, or API endpoints in core libraries
+- No database dependencies in business logic - use in-memory structures for state
+- Clear separation between pure logic and side effects
+- Technology choices MUST serve the domain, not the other way around
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### IV. Input Validation & Contract Testing
+
+All public APIs MUST validate inputs rigorously:
+- Reject invalid inputs with descriptive ValueError or TypeError
+- Validate URL format: require http:// or https:// protocols
+- Reject empty strings, None values, and malformed data
+- Test contract boundaries with edge cases
+
+Integration tests MUST verify: new library contracts, contract changes, inter-service communication, shared schemas.
+
+### V. Simplicity & YAGNI
+
+Start simple and resist over-engineering:
+- Implement only what is explicitly required
+- Defer optional features until actually needed
+- Reject speculative abstractions and "future-proofing"
+- Prefer working solutions over theoretically optimal ones
+
+## Technical Stack
+
+- **Language**: Python (version from project initialization)
+- **Testing**: pytest for unit and contract tests
+- **Storage**: In-memory dict structures only (no databases)
+- **Structure**: Single library at repository root (`src/` or direct)
+- **Format**: Type hints required on all public interfaces
+
+## Quality Standards
+
+- All public methods MUST have docstrings explaining behavior
+- All acceptance criteria from specifications MUST have corresponding tests
+- Edge cases MUST be documented and tested
+- Code MUST be self-documenting through clear naming
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices. Amendments require:
+1. Documentation of the proposed change
+2. Team approval through consensus
+3. Migration plan for existing code if breaking
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+All PRs and reviews MUST verify compliance with these principles. Complexity MUST be justified - simpler alternatives rejected only with documented reasoning.
+
+**Version**: 1.0.0 | **Ratified**: 2026-04-09 | **Last Amended**: 2026-04-09
