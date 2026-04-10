@@ -15,7 +15,8 @@ tests/
 
 ## Commands
 
-cd src; pytest; ruff check .
+pytest
+ruff check .
 
 ## Code Style
 
