@@ -125,7 +125,7 @@
 
 ## Dependency Graph
 
-```
+```text
 Phase 1 (Setup) ──────────────────────────────────────────────────────┐
                                                                     │
 Phase 2 (Foundational) ─────────────────────────────────────────────┤
@@ -168,14 +168,14 @@ Phase 6 (Polish) ─────────────────────
 ## Summary
 
 - **Total Tasks**: 24
-- **User Story 1 (US1)**: 7 tasks (T007-T011)
+- **User Story 1 (US1)**: 5 tasks (T007-T011)
 - **User Story 2 (US2)**: 5 tasks (T012-T016)
 - **User Story 3 (US3)**: 5 tasks (T017-T021)
 - **Setup**: 3 tasks (T001-T003)
 - **Foundational**: 3 tasks (T004-T006)
 - **Polish**: 3 tasks (T022-T024)
 - **Parallel Execution Groups**: 5 groups identified
-- **MVP Scope**: User Story 1 (7 tasks)
+- **MVP Scope**: User Story 1 (5 tasks)
 
 ---
 
