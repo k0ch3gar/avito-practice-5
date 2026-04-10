@@ -35,7 +35,7 @@ class URLShortener:
             original_url: A valid URL string with http:// or https:// protocol
             
         Returns:
-            A short code (Base62 encoded)
+            A short code (6-8 Base62 characters)
             
         Raises:
             ValueError: If URL is invalid (missing protocol, empty, etc.)
@@ -66,8 +66,8 @@ class URLShortener:
         if stripped_url in self._url_to_code:
             return self._url_to_code[stripped_url]
         
-        # Generate new short code (padded to 6 chars per contract)
-        code = encode_base62(self._counter).rjust(6, "0")
+        # Generate new short code (6-8 Base62 characters, variable length)
+        code = encode_base62(self._counter)
         
         # Store mappings (bi-directional)
         self._storage[code] = stripped_url
@@ -90,10 +90,20 @@ class URLShortener:
             
         Raises:
             TypeError: If short_code is not a string
+            ValueError: If short_code is not at most 8 Base62 characters
         """
         # Type check
         if not isinstance(short_code, str):
             raise TypeError("Short code must be a string")
+        
+        # Validate short code format (max 8 Base62 characters)
+        if len(short_code) > 8:
+            raise ValueError("Short code must be at most 8 characters")
+        
+        # Check that all characters are valid Base62
+        base62_chars = set("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        if not all(c in base62_chars for c in short_code):
+            raise ValueError("Short code must contain only Base62 characters (0-9, a-z, A-Z)")
         
         # Look up and return
         return self._storage.get(short_code)

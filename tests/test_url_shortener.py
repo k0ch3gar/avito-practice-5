@@ -104,7 +104,8 @@ class TestUserStory2ErrorHandling:
         """
         shortener = URLShortener()
         
-        result = shortener.resolve("nonexistent")
+        # Use a valid 6-8 character Base62 code that doesn't exist in storage
+        result = shortener.resolve("abcdefgh")
         
         assert result is None
 
